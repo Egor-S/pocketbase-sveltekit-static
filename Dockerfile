@@ -10,9 +10,9 @@ WORKDIR /app
 RUN apk update && apk add ca-certificates && rm -rf /var/cache/apk/*
 COPY --from=downloader /tmp/pocketbase /app/pocketbase
 EXPOSE 8090
-CMD ["./pocketbase", "serve", "--host=0.0.0.0:8090"]
+CMD ["./pocketbase", "serve", "--http=0.0.0.0:8090"]
 
 FROM base as prod
-COPY ./pb_hooks /app/pb_hooks
-COPY ./pb_migrations /app/pb_migrations
+COPY ./pocketbase/pb_hooks /app/pb_hooks
+COPY ./pocketbase/pb_migrations /app/pb_migrations
 # COPY --from=frontend /app/build /app/pb_public

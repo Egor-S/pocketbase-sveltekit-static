@@ -1,0 +1,11 @@
+version: "3.7"
+services:
+  pocketbase:
+    build:
+      target: base
+    volumes:
+      - ./pocketbase/pb_data:/app/pb_data
+      - ./pocketbase/pb_hooks:/app/pb_hooks
+      - ./pocketbase/pb_migrations:/app/pb_migrations
+    ports:
+      - "8090:8090"

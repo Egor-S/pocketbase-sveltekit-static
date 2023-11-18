@@ -6,8 +6,16 @@ To achieve that, SSR is disabled and authorization is handled on the client side
 
 ## Development
 
-* [ ] TODO
+```bash
+$ docker compose -f compose.dev.yaml up
+```
+
+```bash
+$ cd sveltekit
+$ bun install
+$ bun --bun run dev
+```
 
 ## Deployment
 
-* [ ] TODO
+- [ ] TODO
