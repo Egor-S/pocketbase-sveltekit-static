@@ -16,6 +16,12 @@ $ bun install
 $ bun --bun run dev
 ```
 
-## Deployment
+## Roadmap
 
-- [ ] TODO
+- [ ] Production docker compose file
+- [ ] Rewrite readme
+- [ ] PocketBase & SvelteKit shared .ts types
+- [ ] Subscribe to realtime DB updates
+- [ ] Add lib/pocketbase.js documentation
+- [ ] Redirect to ?next= on login
+- [ ] Run formatter and linter

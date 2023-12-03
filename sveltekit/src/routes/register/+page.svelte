@@ -24,3 +24,4 @@
 
 	<button type="submit">Register</button>
 </form>
+<a href="/login">Login</a>
