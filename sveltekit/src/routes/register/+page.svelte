@@ -1,10 +1,10 @@
 <script>
 	import { enhance } from '$app/forms';
 	import { page } from '$app/stores';
-	import { register } from '$lib/pocketbase';
+	import { RegisterAction } from '$lib/pocketbase';
 </script>
 
-<form method="POST" use:enhance={register}>
+<form method="POST" use:enhance={RegisterAction}>
 	<input name="next" type="hidden" value={$page.url.searchParams.get('next')} />
 
 	<input name="email" type="email" placeholder="email" />

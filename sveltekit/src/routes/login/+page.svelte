@@ -1,10 +1,10 @@
 <script>
 	import { enhance } from '$app/forms';
 	import { page } from '$app/stores';
-	import { login } from '$lib/pocketbase';
+	import { LoginAction } from '$lib/pocketbase';
 </script>
 
-<form method="POST" use:enhance={login}>
+<form method="POST" use:enhance={LoginAction}>
 	<input name="next" type="hidden" value={$page.url.searchParams.get('next')} />
 
 	<input name="email" placeholder="email or username" />

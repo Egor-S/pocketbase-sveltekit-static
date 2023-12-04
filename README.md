@@ -23,5 +23,5 @@ $ bun --bun run dev
 - [ ] PocketBase & SvelteKit shared .ts types
 - [ ] Subscribe to realtime DB updates
 - [ ] Add lib/pocketbase.js documentation
-- [ ] Redirect to ?next= on login
-- [ ] Run formatter and linter
+- [x] Redirect to ?next= on login
+- [x] Run formatter and linter

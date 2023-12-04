@@ -5,22 +5,32 @@ import { env } from '$env/dynamic/public';
 import PocketBase from 'pocketbase';
 import { ClientResponseError } from 'pocketbase';
 
-/** @type {import('svelte/store').Writable<import('pocketbase').AuthModel>} */
+/**
+ * Current user store.
+ * @type {import('svelte/store').Writable<import('pocketbase').AuthModel>}
+ */
 export const user = writable(null);
 
+/** PocketBase instance to interact with the backend. */
 export const pb = new PocketBase(env.PUBLIC_POCKETBASE_URL || 'http://localhost:8090');
 
 pb.authStore.onChange(() => {
 	user.set(pb.authStore.model);
 }, true);
 
+/**
+ * Method to initiate user logout.
+ */
 export const logout = async () => {
 	pb.authStore.clear();
 	await invalidateAll();
 };
 
-/** @type {import('@sveltejs/kit').SubmitFunction} */
-export const login = async ({ formData, cancel }) => {
+/**
+ * Form action to handle user login.
+ * @type {import('@sveltejs/kit').SubmitFunction}
+ */
+export const LoginAction = async ({ formData, cancel }) => {
 	cancel();
 
 	/**
@@ -43,8 +53,11 @@ export const login = async ({ formData, cancel }) => {
 	}
 };
 
-/** @type {import('@sveltejs/kit').SubmitFunction} */
-export const register = async ({ formData, cancel }) => {
+/**
+ * Form action to handle user registration.
+ * @type {import('@sveltejs/kit').SubmitFunction}
+ */
+export const RegisterAction = async ({ formData, cancel }) => {
 	cancel();
 
 	/**
