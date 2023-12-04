@@ -1,3 +1,4 @@
+import { building } from '$app/environment';
 import { writable } from 'svelte/store';
 import { applyAction } from '$app/forms';
 import { invalidateAll } from '$app/navigation';
@@ -11,8 +12,14 @@ import { ClientResponseError } from 'pocketbase';
  */
 export const user = writable(null);
 
-/** PocketBase instance to interact with the backend. */
-export const pb = new PocketBase(env.PUBLIC_POCKETBASE_URL || 'http://localhost:8090');
+/**
+ * PocketBase instance to interact with the backend.
+ * In production mode it uses the same host as the frontend.
+ * In development mode it uses the host specified in the environment variable `PUBLIC_POCKETBASE_URL`.
+ */
+export const pb = new PocketBase(
+	building ? undefined : env.PUBLIC_POCKETBASE_URL || 'http://localhost:8090'
+);
 
 pb.authStore.onChange(() => {
 	user.set(pb.authStore.model);

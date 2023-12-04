@@ -16,9 +16,15 @@ $ bun install
 $ bun --bun run dev
 ```
 
+## Going to production
+
+```bash
+$ docker compose -f compose.prod.yaml up
+```
+
 ## Roadmap
 
-- [ ] Production docker compose file
+- [x] Production docker compose file
 - [ ] Rewrite readme
 - [ ] PocketBase & SvelteKit shared .ts types
 - [ ] Subscribe to realtime DB updates

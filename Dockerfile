@@ -12,7 +12,14 @@ COPY --from=downloader /tmp/pocketbase /app/pocketbase
 EXPOSE 8090
 CMD ["./pocketbase", "serve", "--http=0.0.0.0:8090"]
 
+FROM oven/bun:1.0 as frontend
+WORKDIR /app
+COPY ./sveltekit/package.json ./sveltekit/bun.lockb ./
+RUN bun install
+COPY ./sveltekit ./
+RUN bun run build
+
 FROM base as prod
 COPY ./pocketbase/pb_hooks /app/pb_hooks
 COPY ./pocketbase/pb_migrations /app/pb_migrations
-# COPY --from=frontend /app/build /app/pb_public
+COPY --from=frontend /app/build /app/pb_public
