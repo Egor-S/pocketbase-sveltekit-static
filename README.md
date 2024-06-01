@@ -15,6 +15,7 @@ With a minimal image size of just 55 MB, it's perfect for cost-effective hosting
 - Client-side session management is preconfigured.
 - Multi-stage Dockerfile for running PocketBase in dev mode (mounting hooks and migrations to the host).
 - Bun is used for frontend development and building.
+- GitHub workflow `build.yaml` could be manually triggered to push the docker image to `ghcr.io`
 
 ## Usage
 

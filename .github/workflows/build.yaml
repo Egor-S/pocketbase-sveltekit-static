@@ -1,0 +1,41 @@
+name: Build Docker image
+run-name: Build v${{ github.run_number }}
+
+on:
+  workflow_dispatch:
+
+env:
+  REGISTRY: ghcr.io
+
+jobs:
+  build-image:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Lowercase image name
+        run: |
+          echo "IMAGE_NAME=${GITHUB_REPOSITORY,,}" >>${GITHUB_ENV}
+      - uses: docker/build-push-action@v5
+        with:
+          build-args: |
+            GITHUB_TOKEN=${{ secrets.ORG_GITHUB_TOKEN }}
+          push: true
+          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:v${{ github.run_number }}
+      - name: Create a tag
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.git.createRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: 'refs/tags/v${{ github.run_number }}',
+              sha: context.sha
+            })
