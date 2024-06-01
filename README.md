@@ -34,6 +34,14 @@ With a minimal image size of just 55 MB, it's perfect for cost-effective hosting
 - SSR is disabled for simplified deployment, sacrificing SEO features.
 - Authorization is handled on the client side. Note, users can fetch all frontend resources, including pre-rendered pages and JS bundles. **Sensitive information must be served from PocketBase.**
 
+## How to add Tailwind CSS?
+
+```
+cd sveltekit
+bunx @svelte-add/tailwindcss@latest
+bun install
+```
+
 ## Contributing
 
 We welcome contributions! Please feel free to submit issues or pull requests.

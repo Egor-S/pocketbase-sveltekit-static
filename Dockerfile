@@ -1,5 +1,5 @@
 FROM alpine:latest as downloader
-ARG VERSION=0.19.4
+ARG VERSION=0.22.12
 ARG ARCH=linux_amd64
 RUN wget https://github.com/pocketbase/pocketbase/releases/download/v${VERSION}/pocketbase_${VERSION}_${ARCH}.zip \
     && unzip pocketbase_${VERSION}_${ARCH}.zip -d /tmp/ \
@@ -12,7 +12,7 @@ COPY --from=downloader /tmp/pocketbase /app/pocketbase
 EXPOSE 8090
 CMD ["./pocketbase", "serve", "--http=0.0.0.0:8090"]
 
-FROM oven/bun:1.0 as frontend
+FROM oven/bun:1.1 as frontend
 WORKDIR /app
 COPY ./sveltekit/package.json ./sveltekit/bun.lockb ./
 RUN bun install
