@@ -1,8 +1,19 @@
 # PocketBase + SvelteKit (Static) Project Template
 
+> It's a second major version of the template. The first could be found in branch `v1`.
+
 Welcome to the PocketBase + SvelteKit project template!
 This template allows you to effortlessly create a single Docker container housing both the backend (PocketBase) and frontend (SvelteKit) for your projects.
 With a minimal image size of just 55 MB, it's perfect for cost-effective hosting providers and projects without extensive public pages that require SEO.
+
+## Quickstart
+
+1. Clone this repository
+1. Replace all `github.com/YOUR-ORG/YOUR-REPO` to your GitHub repo. For instance, `github.com/Egor-S/pocketbase-sveltekit-static`
+1. Start your PocketBase server `cd pocketbase && go run . serve`
+1. Create a superuser account
+1. Once you create your first collection, uncomment `_ "github.com/YOUR-ORG/YOUR-REPO/backend/migrations"` in `pocketbase/main.go`
+1. Start your SvelteKit dev server `cd sveltekit && npm run dev`
 
 ## Project Structure
 
