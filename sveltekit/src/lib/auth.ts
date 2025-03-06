@@ -1,4 +1,5 @@
 import { applyAction } from '$app/forms';
+import { invalidate, invalidateAll } from '$app/navigation';
 import { type SubmitFunction } from '@sveltejs/kit';
 import { type AuthRecord, ClientResponseError } from 'pocketbase';
 import { writable } from 'svelte/store';
@@ -27,6 +28,11 @@ export const LoginAction: SubmitFunction = async ({ formData, cancel }) => {
 			throw e;
 		}
 	}
+};
+
+export const Logout = async () => {
+	await pb.authStore.clear();
+	await invalidateAll();
 };
 
 export const RegisterAction: SubmitFunction = async ({ formData, cancel }) => {
