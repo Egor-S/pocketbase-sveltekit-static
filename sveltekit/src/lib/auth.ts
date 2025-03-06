@@ -1,5 +1,5 @@
 import { applyAction } from '$app/forms';
-import { invalidate, invalidateAll } from '$app/navigation';
+import { invalidateAll } from '$app/navigation';
 import { type SubmitFunction } from '@sveltejs/kit';
 import { type AuthRecord, ClientResponseError } from 'pocketbase';
 import { writable } from 'svelte/store';
