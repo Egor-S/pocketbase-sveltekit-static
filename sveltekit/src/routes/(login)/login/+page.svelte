@@ -14,5 +14,13 @@
 	<InputField title="Email" name="email" type="text" />
 	<InputField title="Password" name="password" type="password" />
 
+	{#if page.form?.response?.message}
+		<p class="text-red-500">{page.form.response.message}</p>
+	{/if}
+
 	<SubmitButton text="Login" />
+
+	<a href="/register" class="block text-sm text-center text-blue-600 hover:text-blue-800"
+		>Create an account</a
+	>
 </form>

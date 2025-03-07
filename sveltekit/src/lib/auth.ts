@@ -22,8 +22,9 @@ export const LoginAction: SubmitFunction = async ({ formData, cancel }) => {
 		await pb.collection('users').authWithPassword(email, password);
 		await applyAction({ type: 'redirect', status: 303, location: next || '/' });
 	} catch (e) {
+		console.log(e);
 		if (e instanceof ClientResponseError) {
-			await applyAction({ type: 'failure', status: 400, data: { message: e.response.message } });
+			await applyAction({ type: 'failure', status: 400, data: { response: e.response } });
 		} else {
 			throw e;
 		}
@@ -47,8 +48,9 @@ export const RegisterAction: SubmitFunction = async ({ formData, cancel }) => {
 		await pb.collection('users').authWithPassword(email, password);
 		await applyAction({ type: 'redirect', status: 303, location: next || '/' });
 	} catch (e) {
+		console.log(e);
 		if (e instanceof ClientResponseError) {
-			await applyAction({ type: 'failure', status: 400, data: e.response.data });
+			await applyAction({ type: 'failure', status: 400, data: { response: e.response } });
 		} else {
 			throw e;
 		}
