@@ -10,7 +10,7 @@ With a minimal image size of just 59 MB, it's perfect for cost-effective hosting
 
 - PocketBase extended with Go (PocketBase 0.25.8)
 - SvelteKit with adapter-static (Svelte 5.22.2, TypeScript, Tailwind CSS)
-- Ready to use login, registration, and auth-protected routes
+- Ready to use login, registration, and auth-requiring routes
 - Single binary with embedded frontend (~47 MB)
 - GitHub Action to build and push the Docker image (~59 MB) to `ghcr.io`
 
@@ -23,6 +23,8 @@ With a minimal image size of just 59 MB, it's perfect for cost-effective hosting
    - Create a superuser account
 1. Start your SvelteKit dev server `cd sveltekit && npm run dev` in the second terminal
 1. Access both SvelteKit and PocketBase at `localhost:5173`
+
+Find more details in respective README files.
 
 ## Build and run Docker image
 
