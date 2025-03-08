@@ -21,11 +21,6 @@ func main() {
 		Automigrate: isGoRun,
 	})
 
-	if isGoRun {
-		// forward requests to the vite dev server
-		registerProxy(app, "http://localhost:5173")
-	}
-
 	hooks.Register(app)
 
 	if err := app.Start(); err != nil {
