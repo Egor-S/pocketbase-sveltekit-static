@@ -4,7 +4,7 @@
 
 Welcome to the PocketBase + SvelteKit project template!
 This template allows you to effortlessly create a single Docker container housing both the backend (PocketBase) and frontend (SvelteKit) for your projects.
-With a minimal image size of just 55 MB, it's perfect for cost-effective hosting providers and projects without extensive public pages that require SEO.
+With a minimal image size of just 59 MB, it's perfect for cost-effective hosting providers and projects without extensive public pages that require SEO. It's still possible to prerender some pages with SvelteKit, but it's not the main focus of this template.
 
 ## Features
 
