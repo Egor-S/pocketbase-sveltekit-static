@@ -17,13 +17,12 @@ With a minimal image size of just 55 MB, it's perfect for cost-effective hosting
 ## Quickstart
 
 1. Fork this repository
-1. Replace all `github.com/YOUR-ORG/YOUR-REPO` to your GitHub repo. For instance, `github.com/Egor-S/my-awesome-project`
+   - Replace all `github.com/YOUR-ORG/YOUR-REPO` to your GitHub repo. For instance, `github.com/Egor-S/my-awesome-project`
+   - Update default app settings in `pocketbase/migrations/1739793600_initial_settings.go`
 1. Start your PocketBase server `cd pocketbase && go run . serve` in the first terminal
    - Create a superuser account
 1. Start your SvelteKit dev server `cd sveltekit && npm run dev` in the second terminal
 1. Access both SvelteKit and PocketBase at `localhost:5173`
-
-Once you create your first collection, uncomment `_ "github.com/YOUR-ORG/YOUR-REPO/backend/migrations"` in `pocketbase/main.go`.
 
 ## Build and run Docker image
 

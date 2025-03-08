@@ -7,8 +7,8 @@ import (
 	"os"
 	"strings"
 
-	// _ "github.com/YOUR-ORG/YOUR-REPO/backend/migrations"
 	"github.com/YOUR-ORG/YOUR-REPO/pocketbase/hooks"
+	_ "github.com/YOUR-ORG/YOUR-REPO/pocketbase/migrations"
 	"github.com/pocketbase/pocketbase"
 	"github.com/pocketbase/pocketbase/apis"
 	"github.com/pocketbase/pocketbase/core"
@@ -37,6 +37,7 @@ func main() {
 }
 
 func serveStatic(app core.App) {
+	// Docs https://pocketbase.io/docs/go-overview/
 	app.OnServe().BindFunc(func(se *core.ServeEvent) error {
 		pb_public, err := fs.Sub(staticFS, "pb_public")
 		if err != nil {
