@@ -1,25 +1,22 @@
-FROM alpine:latest as downloader
-ARG VERSION=0.22.12
-ARG ARCH=linux_amd64
-RUN wget https://github.com/pocketbase/pocketbase/releases/download/v${VERSION}/pocketbase_${VERSION}_${ARCH}.zip \
-    && unzip pocketbase_${VERSION}_${ARCH}.zip -d /tmp/ \
-    && chmod +x /tmp/pocketbase
-
-FROM alpine:latest as base
+FROM node:23-alpine AS sveltekit
 WORKDIR /app
-RUN apk update && apk add ca-certificates && rm -rf /var/cache/apk/*
-COPY --from=downloader /tmp/pocketbase /app/pocketbase
+COPY sveltekit/package.json sveltekit/package-lock.json ./
+RUN npm install
+COPY sveltekit ./
+RUN npm run build
+
+FROM golang:1.24-alpine AS pocketbase
+WORKDIR /app
+ENV CGO_ENABLED=0
+COPY pocketbase/go.mod pocketbase/go.sum ./
+RUN go mod download
+COPY pocketbase ./
+COPY --from=sveltekit /app/build /app/pb_public
+RUN go build -o pocketbase main.go
+
+FROM alpine:3.21
+WORKDIR /app
+RUN apk --update add ca-certificates
+COPY --from=pocketbase /app/pocketbase /app/pocketbase
 EXPOSE 8090
 CMD ["./pocketbase", "serve", "--http=0.0.0.0:8090"]
-
-FROM oven/bun:1.1 as frontend
-WORKDIR /app
-COPY ./sveltekit/package.json ./sveltekit/bun.lockb ./
-RUN bun install
-COPY ./sveltekit ./
-RUN bun run build
-
-FROM base as prod
-COPY ./pocketbase/pb_hooks /app/pb_hooks
-COPY ./pocketbase/pb_migrations /app/pb_migrations
-COPY --from=frontend /app/build /app/pb_public

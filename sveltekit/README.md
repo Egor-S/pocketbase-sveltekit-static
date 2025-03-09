@@ -1,38 +1,34 @@
-# create-svelte
+# pocketbase-sveltekit-static/sveltekit
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+Run `npm run dev` to start the SvelteKit dev server.
+It will also proxy all requests to `/_/*` and `/api/*` to `localhost:8090` (your PocketBase server).
 
-## Creating a project
+## SSR and Authorization
 
-If you're seeing this, you've probably already done this step. Congrats!
+- SSR is disabled for simplified deployment, sacrificing SEO features.
+- Authorization is handled on the client side. Note, users can fetch all frontend resources, including pre-rendered pages and JS bundles. **Sensitive information must be served from PocketBase.**
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
+## Structure explained
 
-# create a new project in my-app
-npm create svelte@latest my-app
-```
+- `src/lib/auth.ts` - the `user` store and form-enhance methods for `login` and `register` pages
+- `src/lib/pocketbase.ts` - the default PocketBase client
+- `src/routes/(auth)` - all routes in this directory requires authentication. If session token is not valid, the user will be redirected to `/login`. If the user is authenticated, the session token will be refreshed
+- `src/routes/(login)` - if there is a valid session token, the user will be redirected to `/`
+  - `/login` - the login page
+  - `/register` - the registration page
 
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
+## How it was built
 
 ```bash
-npm run build
+npx sv create sveltekit --template minimal --types ts
 ```
 
-You can preview the production build with `npm run preview`.
+- add ons: prettier, eslint, tailwindcss, sveltekit-adapter
+- tailwindcss plugins: none
+- sveltekit-adapter: static
+- package manager: npm
 
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+```bash
+npm install --save-dev pocketbase
+npm install --save-dev @trivago/prettier-plugin-sort-imports
+```

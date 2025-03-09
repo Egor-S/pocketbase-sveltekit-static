@@ -1,0 +1,5 @@
+/pocketbase/pb_data/
+/pocketbase/pb_public/
+
+/sveltekit/.svelte-kit/
+/sveltekit/node_modules/
