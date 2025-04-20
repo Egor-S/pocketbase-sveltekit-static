@@ -43,7 +43,7 @@ func serveStatic(app core.App) {
 		if err != nil {
 			return err
 		}
-		se.Router.GET("/{path...}", apis.Static(pb_public, false))
+		se.Router.GET("/{path...}", apis.Static(pb_public, true))
 		return se.Next()
 	})
 }
