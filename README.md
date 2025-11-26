@@ -1,5 +1,8 @@
 # PocketBase + SvelteKit (Static) Project Template
 
+> [!TIP]
+> Check out my new template [pocketbase-react-static](https://github.com/Egor-S/pocketbase-react-static)
+
 > It's `v2` of the template. The old version could be found in branch `v1`.
 
 Welcome to the PocketBase + SvelteKit project template!
