@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
+	import { resolve } from '$app/paths';
 	import { page } from '$app/state';
-
 	import { LoginAction } from '$lib/auth';
 
 	import InputField from '../InputField.svelte';
@@ -20,7 +20,7 @@
 
 	<SubmitButton text="Login" />
 
-	<a href="/register" class="block text-sm text-center text-blue-600 hover:text-blue-800"
+	<a href={resolve('/register')} class="block text-center text-sm text-blue-600 hover:text-blue-800"
 		>Create an account</a
 	>
 </form>
