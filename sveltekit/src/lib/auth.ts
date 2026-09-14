@@ -1,9 +1,9 @@
-import { applyAction } from '$app/forms';
-import { invalidateAll } from '$app/navigation';
 import { type SubmitFunction } from '@sveltejs/kit';
-import { type AuthRecord, ClientResponseError } from 'pocketbase';
+import { ClientResponseError, type AuthRecord } from 'pocketbase';
 import { writable } from 'svelte/store';
 
+import { applyAction } from '$app/forms';
+import { invalidateAll } from '$app/navigation';
 import { pb } from '$lib/pocketbase';
 
 export const user = writable<AuthRecord>(null);
