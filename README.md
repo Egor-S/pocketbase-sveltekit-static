@@ -18,7 +18,7 @@ This is a static single-page app (`adapter-static` + `ssr = false`), so SvelteKi
 - Ready to use login, registration, and auth-requiring routes
   - Route guards are UI-only: the check ships in the public JS bundle. Gate any sensitive data server-side with PocketBase collection API rules.
 - Single binary with embedded frontend (~32 MB)
-- GitHub Action to build and push a multi-arch Docker image (~70 MB) to `ghcr.io`
+- GitHub Action to build and push a Docker image (~70 MB) to `ghcr.io`, triggered by a release or manually
 
 ## Quickstart
 
@@ -53,6 +53,15 @@ container_id=$(docker create my-awesome-project:latest)
 docker cp $container_id:/app/pocketbase ./pocketbase
 docker rm $container_id
 ```
+
+### Publish with GitHub Actions
+
+`.github/workflows/build.yaml` builds and pushes an image to GHCR (`ghcr.io/<owner>/<repo>`), `linux/amd64` by default — edit the `PLATFORMS` env var in the workflow (e.g. add `,linux/arm64`) to build for more:
+
+- **Cut a GitHub Release** tagged `vX.Y.Z` — publishing it triggers the workflow and pushes an image tagged to match.
+- Or trigger it manually (Actions → Build Docker image → Run workflow) with an arbitrary `tag` input, e.g. to rebuild without cutting a new release.
+
+No extra secrets needed — it authenticates to GHCR with the default `GITHUB_TOKEN`.
 
 ## Contributing
 
