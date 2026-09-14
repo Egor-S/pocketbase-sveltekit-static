@@ -1,0 +1,37 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  go:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: pocketbase
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-go@v6
+        with:
+          go-version-file: pocketbase/go.mod
+      - run: go build ./...
+      - run: go vet ./...
+
+  sveltekit:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: sveltekit
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 25
+          cache: npm
+          cache-dependency-path: sveltekit/package-lock.json
+      - run: npm ci
+      - run: npm run check
+      - run: npm run lint
+      - run: npm run build
