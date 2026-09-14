@@ -2,8 +2,8 @@
 	const { children } = $props();
 </script>
 
-<div class="min-h-screen flex items-center justify-center bg-gray-50">
-	<div class="max-w-md w-full space-y-8 p-8 bg-white rounded-lg shadow-md">
+<div class="flex min-h-screen items-center justify-center bg-gray-50">
+	<div class="w-full max-w-md space-y-8 rounded-lg bg-white p-8 shadow-md">
 		{@render children?.()}
 	</div>
 </div>

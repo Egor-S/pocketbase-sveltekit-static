@@ -1,13 +1,12 @@
 <script lang="ts">
-	import { page } from '$app/state';
-
 	interface Props {
 		title: string;
 		name: string;
 		type: 'email' | 'password' | 'text';
+		error?: string;
 	}
 
-	const { title, name, type }: Props = $props();
+	const { title, name, type, error }: Props = $props();
 </script>
 
 <div>
@@ -18,7 +17,7 @@
 		required
 		class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
 	/>
-	{#if page.form?.response?.data?.[name]?.message}
-		<p class="text-red-500">{page.form.response.data[name].message}</p>
+	{#if error}
+		<p class="text-red-500">{error}</p>
 	{/if}
 </div>

@@ -10,8 +10,9 @@ It will also proxy all requests to `/_/*` and `/api/*` to `localhost:8090` (your
 
 ## Structure explained
 
-- `src/lib/auth.ts` - the `user` store and form-enhance methods for `login` and `register` pages
+- `src/lib/auth.svelte.ts` - the reactive `authState.user`, plus `login`/`register`/`logout` methods
 - `src/lib/pocketbase.ts` - the default PocketBase client
+- `src/lib/components` - shared components (`InputField`, `SubmitButton`) used by the login/register pages
 - `src/routes/(auth)` - all routes in this directory requires authentication. If session token is not valid, the user will be redirected to `/login`. If the user is authenticated, the session token will be refreshed
 - `src/routes/(login)` - if there is a valid session token, the user will be redirected to `/`
   - `/login` - the login page
@@ -30,5 +31,5 @@ npx sv create sveltekit --template minimal --types ts
 
 ```bash
 npm install --save-dev pocketbase
-npm install --save-dev @trivago/prettier-plugin-sort-imports
+npm install --save-dev @ianvs/prettier-plugin-sort-imports
 ```
