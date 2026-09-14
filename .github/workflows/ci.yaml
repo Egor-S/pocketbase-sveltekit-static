@@ -13,7 +13,7 @@ jobs:
         working-directory: pocketbase
     steps:
       - uses: actions/checkout@v7
-      - uses: actions/setup-go@v6
+      - uses: actions/setup-go@v7
         with:
           go-version-file: pocketbase/go.mod
       - run: go build ./...
@@ -26,7 +26,7 @@ jobs:
         working-directory: sveltekit
     steps:
       - uses: actions/checkout@v7
-      - uses: actions/setup-node@v5
+      - uses: actions/setup-node@v7
         with:
           node-version: 25
           cache: npm
