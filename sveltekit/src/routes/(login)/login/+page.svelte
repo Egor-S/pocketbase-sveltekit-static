@@ -1,24 +1,60 @@
 <script lang="ts">
-	import { enhance } from '$app/forms';
+	import { ClientResponseError } from 'pocketbase';
+
+	import { goto } from '$app/navigation';
 	import { resolve } from '$app/paths';
 	import { page } from '$app/state';
-	import { LoginAction } from '$lib/auth';
+	import type { Pathname } from '$app/types';
+	import { login } from '$lib/auth.svelte';
+	import InputField from '$lib/components/InputField.svelte';
+	import SubmitButton from '$lib/components/SubmitButton.svelte';
 
-	import InputField from '../InputField.svelte';
-	import SubmitButton from '../SubmitButton.svelte';
+	interface FormError {
+		message?: string;
+		data?: Record<string, { message: string }>;
+	}
+
+	let pending = $state(false);
+	let error = $state<FormError>();
+
+	async function onsubmit(event: SubmitEvent) {
+		event.preventDefault();
+		const formData = new FormData(event.currentTarget as HTMLFormElement);
+		const email = formData.get('email') as string;
+		const password = formData.get('password') as string;
+
+		pending = true;
+		error = undefined;
+		try {
+			await login(email, password);
+			const next = (page.url.searchParams.get('next') || '/') as Pathname;
+			await goto(resolve(next));
+		} catch (e) {
+			if (e instanceof ClientResponseError) {
+				error = e.response;
+			} else {
+				throw e;
+			}
+		} finally {
+			pending = false;
+		}
+	}
 </script>
 
-<form use:enhance={LoginAction} method="POST" class="space-y-6">
-	<input type="hidden" name="next" value={page.url.searchParams.get('next')} />
+<form {onsubmit} class="space-y-6">
+	<InputField title="Email" name="email" type="text" error={error?.data?.email?.message} />
+	<InputField
+		title="Password"
+		name="password"
+		type="password"
+		error={error?.data?.password?.message}
+	/>
 
-	<InputField title="Email" name="email" type="text" />
-	<InputField title="Password" name="password" type="password" />
-
-	{#if page.form?.response?.message}
-		<p class="text-red-500">{page.form.response.message}</p>
+	{#if error?.message}
+		<p class="text-red-500">{error.message}</p>
 	{/if}
 
-	<SubmitButton text="Login" />
+	<SubmitButton text="Login" {pending} />
 
 	<a href={resolve('/register')} class="block text-center text-sm text-blue-600 hover:text-blue-800"
 		>Create an account</a

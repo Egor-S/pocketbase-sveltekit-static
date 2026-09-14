@@ -1,12 +1,11 @@
 import { redirect } from '@sveltejs/kit';
-import { get } from 'svelte/store';
 
-import { user } from '$lib/auth';
+import { authState } from '$lib/auth.svelte';
 
 import type { LayoutLoad } from './$types';
 
 export const load: LayoutLoad = async ({ url }) => {
-	if (get(user) !== null) {
+	if (authState.user !== null) {
 		throw redirect(302, url.searchParams.get('next') || '/');
 	}
 };
