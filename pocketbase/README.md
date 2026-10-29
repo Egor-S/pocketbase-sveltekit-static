@@ -13,5 +13,5 @@ Run `go run . serve` to start the PocketBase dev server.
 
 ```bash
 go mod init github.com/YOUR-ORG/YOUR-REPO/pocketbase
-go get github.com/pocketbase/pocketbase
+go get ganigeorgiev.com/pocketbase/pocketbase
 ```
