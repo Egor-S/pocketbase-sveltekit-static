@@ -11,7 +11,7 @@ func init() {
 		settings := app.Settings()
 
 		// for all available settings fields you could check
-		// https://ganigeorgiev.com/pocketbase/pocketbase/files/core/settings_model.go?rev=refs/tags/v0.41.1
+		// https://ganigeorgiev.com/pocketbase/pocketbase/files/core/settings_model.go?rev=refs/tags/v0.42.3
 		settings.Meta.AppName = "github.com/YOUR-ORG/YOUR-REPO"
 		settings.Meta.AppURL = "http://localhost:8090"
 		settings.Logs.MaxDays = 3
